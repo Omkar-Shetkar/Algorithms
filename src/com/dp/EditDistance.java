@@ -2,8 +2,8 @@ package com.dp;
 
 public class EditDistance {
 
-	private static String source = "OUR";
-	private static String target = "HOUR";
+	private static String source = "KITTEN";
+	private static String target = "SITTING";
 	private static int[][] cache = new int[source.length() + 1][target.length() + 1];
 
 	public static void main(String[] args) {
@@ -23,32 +23,23 @@ public class EditDistance {
 
 	private static int editDistance(int sl, int tl) {
 
-		if (sl < 0 || tl < 0)
-			return 0;
+		if (sl == 0 || tl == 0) {
+			cache[sl][tl] = Math.abs(sl - tl);
+			return cache[sl][tl];
+		}
 
 		if (cache[sl][tl] != -1)
 			return cache[sl][tl];
 
-		if (sl == 1 && tl == 0) {
-			cache[1][0] = 1;
-			return cache[sl][tl];
-		}
-
-		if (sl == 0 && tl == 1) {
-			cache[0][1] = 1;
-			return cache[sl][tl];
-		}
-
-		if (sl == 0 && tl == 0) {
-			cache[0][0] = 0;
+		if ((sl == 1 && tl == 0) || (sl == 0 && tl == 1)) {
+			cache[sl][tl] = 1;
 			return cache[sl][tl];
 		}
 
 		int substitutionCost = editDistance(sl - 1, tl - 1) + cost(sl, tl);
 		int deletionCost = editDistance(sl, tl - 1) + 1;
 		int addtionCost = editDistance(sl - 1, tl) + 1;
-		cache[sl][tl] = Math.min(substitutionCost,
-				Math.min(deletionCost, addtionCost));
+		cache[sl][tl] = Math.min(substitutionCost, Math.min(deletionCost, addtionCost));
 
 		return cache[sl][tl];
 	}
