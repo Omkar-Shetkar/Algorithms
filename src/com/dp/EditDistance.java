@@ -2,8 +2,8 @@ package com.dp;
 
 public class EditDistance {
 
-	private static String source = "KITTEN";
-	private static String target = "SITTING";
+	private static String source = "shetkar";
+	private static String target = "shetka";
 	private static int[][] cache = new int[source.length() + 1][target.length() + 1];
 
 	public static void main(String[] args) {
